@@ -128,3 +128,4 @@ All variables and defaults:
 | tags                          | Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt. |  map   |     `<map>`      |    no    |
 | vpc_id                        | The VPC that is used for the instances.                                                                             | string |        -         |   yes    |
 
+Copyright (c) 2017 Niek Palm
