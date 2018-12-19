@@ -42,12 +42,12 @@ variable "ssh_public_key" {
 
 variable "docker_machine_instance_type" {
   description = "Instance type used for the instances hosting docker-machine."
-  default     = "m4.xlarge"
+  default     = "m4.large"
 }
 
 variable "docker_machine_spot_price_bid" {
   description = "Spot price bid."
-  default     = "0.1"
+  default     = "0.04"
 }
 
 variable "docker_machine_version" {
