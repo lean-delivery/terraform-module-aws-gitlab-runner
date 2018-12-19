@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/npalm/terraform-aws-gitlab-runner.svg?branch=master)](https://travis-ci.com/npalm/terraform-aws-gitlab-runner)
-
 # Terraform module for GitLab auto scaling runners on Spot instances
 
 This repo contains a terraform module and example to run a [GitLab CI multi runner](https://docs.gitlab.com/runner/) on AWS Spot instances. See the blog post at [040code](https://040code.github.io/2017/12/09/runners-on-the-spot/) for a detailed description of the setup.
@@ -55,16 +53,6 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 }
 ```
 
-### Configuration GitLab runner token
-
-Currently register a new runner is a manual process. See the GitLab Runner [documentation](https://docs.gitlab.com/runner/register/index.html#docker) for more details.
-
-```sh
-docker run -it --rm gitlab/gitlab-runner register
-```
-
-Provide the details in the interactive terminal. Once done the token can be found in the GitLab runners section, choose edit to get the token or see the config.toml file.
-
 ## Usage
 
 ### Configuration
@@ -81,16 +69,17 @@ runner_token  = "RUNNER_TOKEN"
 
 ```hcl
 module "gitlab-runner" {
-  source = "npalm/gitlab-runner/aws"
-  version = "1.0.0"
+  source = "github.com/lean-delivery/tf-module-aws-gitlab-runner"
+  version = "0.0.0"
 
   aws_region              = "${var.aws_region}"
   environment             = "${var.environment}"
   ssh_public_key          = "${file("${var.ssh_key_file}")}"
 
-  vpc_id                  = "${module.vpc.vpc_id}"
-  subnet_id_gitlab_runner = "${element(module.vpc.private_subnets, 0)}"
-  subnet_id_runners       = "${element(module.vpc.private_subnets, 0)}"
+  vpc_id                    = "${module.vpc.vpc_id}"
+  subnet_id_gitlab_runner   = "${element(module.vpc.private_subnets, 0)}"
+  subnet_id_runners         = "${element(module.vpc.private_subnets, 0)}"
+  availability_zone_runners = "${var.availability_zone_runners}" 
 
   runners_name            = "${var.runner_name}"
   runners_gitlab_url      = "${var.gitlab_url}"
