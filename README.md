@@ -6,24 +6,6 @@ This repo contains a terraform module and example to run a [GitLab CI multi runn
 
 The setup is based on the blog post: [Auto scale GitLab CI runners and save 90% on EC2 costs](https://about.gitlab.com/2017/11/23/autoscale-ci-runners/) The created runner will have by default a shared cache in S3 and logging is streamed to CloudWatch. The cache in S3 will expire in X days, see configuration. The logging can be disabled.
 
-## Prerequisites
-
-### Terraform
-
-Ensure you have Terraform installed, see `.terraform-version` for the used version. A handy tool to mange your terraform version is [tfenv](https://github.com/kamatama41/tfenv).
-
-On mac simple install tfenv using brew.
-
-```sh
-brew install tfenv
-```
-
-Next install a terraform version.
-
-```sh
-tfenv install <version>
-```
-
 ### AWS
 
 To run the terraform scripts you need to have AWS keys.
@@ -57,7 +39,7 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 
 ### Configuration
 
-Update the variables in `terraform.tfvars` to your needs and add the following variables, see previous step for how to obtain the token.
+Update the variables in `terraform.tfvars` to your needs and add the following variables.
 
 ```hcl
 runner_name  = "NAME_OF_YOUR_RUNNER"
@@ -69,21 +51,21 @@ runner_token  = "RUNNER_TOKEN"
 
 ```hcl
 module "gitlab-runner" {
-  source = "github.com/lean-delivery/tf-module-aws-gitlab-runner"
+  source  = "github.com/lean-delivery/tf-module-aws-gitlab-runner"
   version = "0.0.0"
 
-  aws_region              = "${var.aws_region}"
-  environment             = "${var.environment}"
-  ssh_public_key          = "${file("${var.ssh_key_file}")}"
+  aws_region     = "${var.aws_region}"
+  environment    = "${var.environment}"
+  ssh_public_key = "${file("${var.ssh_key_file}")}"
 
   vpc_id                    = "${module.vpc.vpc_id}"
   subnet_id_gitlab_runner   = "${element(module.vpc.private_subnets, 0)}"
   subnet_id_runners         = "${element(module.vpc.private_subnets, 0)}"
   availability_zone_runners = "${var.availability_zone_runners}" 
 
-  runners_name            = "${var.runner_name}"
-  runners_gitlab_url      = "${var.gitlab_url}"
-  runners_token           = "${var.runner_token}"
+  runners_name       = "${var.runner_name}"
+  runners_gitlab_url = "${var.gitlab_url}"
+  runners_token      = "${var.runner_token}"
 }
 ```
 
@@ -128,4 +110,3 @@ All variables and defaults:
 | tags                          | Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt. |  map   |     `<map>`      |    no    |
 | vpc_id                        | The VPC that is used for the instances.                                                                             | string |        -         |   yes    |
 
-Copyright (c) 2017 Niek Palm
