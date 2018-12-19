@@ -93,7 +93,7 @@ All variables and defaults:
 
 | Name                          | Description                                                                                                         |  Type  |     Default      | Required |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------- | :----: | :--------------: | :------: |
-| amazon_optimized_amis         | AMI map per region-zone for the gitlab-runner instance AMI.                                                         |  map   |     `<map>`      |    no    |
+| availability_zone_runners     | Availability zone for gitlab-runners                                                                                | string |     `a`          |    no    |
 | aws_region                    | AWS region.                                                                                                         | string |        -         |   yes    |
 | cache_expiration_days         | Number of days before cache objects expires.                                                                        | string |       `1`        |    no    |
 | cache_user                    | User name of the user to create to write and read to the s3 cache.                                                  | string |   `cache_user`   |    no    |
