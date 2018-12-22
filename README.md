@@ -1,11 +1,11 @@
 # Terraform module for GitLab auto scaling runners on Spot instances
 
+## Description
 This repo contains a terraform module to run a [GitLab CI multi runner](https://docs.gitlab.com/runner/) on AWS Spot instances. See the blog post at [040code](https://040code.github.io/2017/12/09/runners-on-the-spot/) for a detailed description of the setup.
 
 The setup is based on the blog post: [Auto scale GitLab CI runners and save 90% on EC2 costs](https://about.gitlab.com/2017/11/23/autoscale-ci-runners/) The created runner will have by default a shared cache in S3 and logging is streamed to CloudWatch. The cache in S3 will expire in X days, see configuration. The logging can be disabled.
 
 ### AWS
-
 To run the terraform scripts you need to have AWS keys.
 Example file:
 
@@ -15,7 +15,6 @@ export AWS_SECRET_ACCESS_KEY=...
 ```
 
 ### Service linked roles
-
 The gitlab runner ec2 instance needs the following sercice linked roles:
 
 - AWSServiceRoleForAutoScaling
@@ -36,7 +35,6 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 ## Usage
 
 ### Configuration
-
 Update the variables in `terraform.tfvars` to your needs and add the following variables.
 
 ```hcl
@@ -45,8 +43,7 @@ gitlab_url   = "GIT_LAB_URL"
 runner_token  = "RUNNER_TOKEN"
 ```
 
-### Usage module.
-
+### Conditional creation
 ```hcl
 module "gitlab-runner" {
   source  = "github.com/lean-delivery/tf-module-aws-gitlab-runner"
@@ -66,9 +63,9 @@ module "gitlab-runner" {
   runners_token      = "${var.runner_token}"
 }
 ```
+### Examples
 
 ## Inputs
-
 All variables and defaults:
 
 | Name                          | Description                                                                                                         |  Type  |     Default      | Required |
@@ -108,3 +105,18 @@ All variables and defaults:
 | tags                          | Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt. |  map   |     `<map>`      |    no    |
 | vpc_id                        | The VPC that is used for the instances.                                                                             | string |        -         |   yes    |
 
+## Outputs
+
+## Tests
+
+## Terraform versions
+
+## Contributing
+Thank you for your interest in contributing! Please refer to [CONTRIBUTING.md](https://github.com/lean-delivery/tf-module-aws-gitlab-runner/CONTRIBUTING.md) for guidance.
+
+## License
+Apache
+
+## Author Information
+authors:
+  - Lean Delivery Team team@lean-delivery.com
