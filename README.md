@@ -1,4 +1,5 @@
 # Terraform module for GitLab auto scaling runners on Spot instances
+[![Build Status](https://travis-ci.org/lean-delivery/tf-module-aws-gitlab-runner.svg?branch=master)](https://travis-ci.org/lean-delivery/tf-module-aws-gitlab-runner)
 
 ## Description
 This repo contains a terraform module to run a [GitLab CI multi runner](https://docs.gitlab.com/runner/) on AWS Spot instances. See the blog post at [040code](https://040code.github.io/2017/12/09/runners-on-the-spot/) for a detailed description of the setup.
