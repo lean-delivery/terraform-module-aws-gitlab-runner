@@ -10,7 +10,7 @@ before_script:
   - terraform -v
 script:
   - echo 'script'
-  - echo -e 'provider "aws" {\n  region = "${var.aws_region}"\n} \n' > test_provider.tf
+  - echo -e 'provider "aws" {\n  region = "${var.aws_region}"\n}' > test_provider.tf
   - cat test_provider.tf
   - terraform init --input=false
   - terraform fmt -check=true -list=true
