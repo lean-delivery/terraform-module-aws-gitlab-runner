@@ -23,7 +23,7 @@ resource "aws_s3_bucket" "build_cache" {
     }
   }
 }
-
+# Why separate user? - Because we use its credentials on gitlab-workers for accessing cache and nothing more than that
 resource "aws_iam_user" "cache_user" {
   name = "${var.cache_user}"
 }
