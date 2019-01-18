@@ -1,21 +1,23 @@
 # filter by prebacked ami
-data "aws_ami" "amazon_optimized_amis" {
+data "aws_ami" "custom_ami" {
   most_recent = true
-
-  filter {
-    name   = "owner-alias"
-    values = ["amazon"]
-  }
+  owners      = ["self"]
 
   filter {
     name   = "name"
-    values = ["amzn-ami-hvm-2018.*"] 
-  }
-
-  filter {
-    name   = "name"
-    values = ["*gp2"]
+    values = ["${var.custom_ami_filter}*"]
   }
 }
 
 # create ec2 resourse 
+resource "aws_instance" "gitlab-runner-prebacked" {
+  count  = "${var.use_prebacked_ami ? 1 : 0}"
+  ami                         = "${data.aws_ami.custom_ami.id}"
+  instance_type               = "${var.instance_type}"
+  monitoring                  = false
+  subnet_id                   = "${var.subnet_id_proxy}"
+  vpc_security_group_ids      = ["${aws_security_group.runner.id}"]
+  associate_public_ip_address = false
+
+  tags = "${local.tags}"
+}

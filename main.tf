@@ -62,38 +62,6 @@ resource "aws_security_group" "docker_machine" {
   tags = "${local.tags}"
 }
 
-################################################################################
-### Gitlab-runner (ASG for single instance)
-################################################################################
-################################################################################ move to single ec2 resourse
-resource "aws_autoscaling_group" "gitlab_runner_instance" { 
-  name                = "${var.environment}-as-group"
-  vpc_zone_identifier = ["${var.subnet_id_gitlab_runner}"]
-
-  min_size                  = "1"
-  max_size                  = "1"
-  desired_capacity          = "1"
-  health_check_grace_period = 0
-  launch_configuration      = "${aws_launch_configuration.gitlab_runner_instance.name}"
-
-  tags = ["${data.null_data_source.tags.*.outputs}"]
-}
-
-resource "aws_launch_configuration" "gitlab_runner_instance" {
-  security_groups      = ["${aws_security_group.runner.id}"]
-  key_name             = "${aws_key_pair.key.key_name}"
-  image_id             = "${data.aws_ami.amazon_optimized_amis.id}"
-  user_data            = "${data.template_file.user_data.rendered}"
-  instance_type        = "${var.instance_type}"
-  iam_instance_profile = "${aws_iam_instance_profile.instance.name}"
-
-  associate_public_ip_address = false
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 # use existing roles (get 'em by  data)
 ################################################################################
 ### Trust policy

@@ -18,8 +18,20 @@ variable "subnet_id_runners" {
   type        = "string"
 }
 
+variable "subnet_id_proxy" {
+  description = "Subnet used to hosts the proxy."
+  type        = "string"
+  default = ""
+}
+
 variable "availability_zone_runners" {
   description = "Availability zone used to host the docker-machine runners."
+  type        = "string"
+  default     = "a"
+}
+
+variable "availability_zone_proxy" {
+  description = "Availability zone used to host the proxy."
   type        = "string"
   default     = "a"
 }
@@ -58,6 +70,12 @@ variable "docker_machine_version" {
 variable "runners_name" {
   description = "Name of the runner, will be used in the runner config.toml"
   type        = "string"
+}
+
+variable "custom_ami_filter" {
+  description = "Name of the prebaked ami with gitlab runner proxy preinstalled"
+  type        = "string"
+  default     = ""
 }
 
 variable "runners_gitlab_url" {
@@ -169,4 +187,9 @@ variable "tags" {
 variable "allow_iam_service_linked_role_creation" {
   description = "Attach policy to runner instance to create service linked roles."
   default     = true
+}
+
+variable "use_prebacked_ami" {
+  description = "Use prebacked ami for runner by default"
+  default     = 0
 }
