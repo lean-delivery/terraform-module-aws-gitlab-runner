@@ -16,3 +16,4 @@ resource "aws_cloudwatch_log_group" "environment" {
 
   tags = "${local.tags}"
 }
+# stream from cloudwatch to somewhere, true/false default: false 

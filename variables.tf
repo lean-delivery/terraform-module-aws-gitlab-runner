@@ -1,25 +1,27 @@
 variable "aws_region" {
   description = "AWS region."
   type        = "string"
-  default     = "us-west-2"
 }
 
 variable "environment" {
   description = "A name that identifies the environment, will used as prefix and for tagging."
   type        = "string"
-  default     = "just_test"
 }
 
 variable "vpc_id" {
   description = "The VPC that is used for the instances."
   type        = "string"
-  default     = "vpc-1a2b3c4d"
 }
 
 variable "subnet_id_runners" {
   description = "Subnet used to hosts the docker-machine runners."
   type        = "string"
-  default     = "id-1a2b3c4d"
+}
+
+variable "subnet_id_proxy" {
+  description = "Subnet used to hosts the proxy."
+  type        = "string"
+  default = ""
 }
 
 variable "availability_zone_runners" {
@@ -28,10 +30,15 @@ variable "availability_zone_runners" {
   default     = "a"
 }
 
+variable "availability_zone_proxy" {
+  description = "Availability zone used to host the proxy."
+  type        = "string"
+  default     = "a"
+}
+
 variable "subnet_id_gitlab_runner" {
   description = "Subnet used for hosting the gitlab-runner."
   type        = "string"
-  default     = "subnet-1234567"
 }
 
 variable "instance_type" {
@@ -43,17 +50,16 @@ variable "instance_type" {
 variable "ssh_public_key" {
   description = "Public SSH key used for the gitlab-runner ec2 instance."
   type        = "string"
-  default     = ""
 }
 
 variable "docker_machine_instance_type" {
   description = "Instance type used for the instances hosting docker-machine."
-  default     = "m4.large"
+  default     = "m4.xlarge"
 }
 
 variable "docker_machine_spot_price_bid" {
   description = "Spot price bid."
-  default     = "0.04"
+  default     = "0.1"
 }
 
 variable "docker_machine_version" {
@@ -64,19 +70,22 @@ variable "docker_machine_version" {
 variable "runners_name" {
   description = "Name of the runner, will be used in the runner config.toml"
   type        = "string"
-  default     = "default_runner_name"
+}
+
+variable "custom_ami_filter" {
+  description = "Name of the prebaked ami with gitlab runner proxy preinstalled"
+  type        = "string"
+  default     = ""
 }
 
 variable "runners_gitlab_url" {
   description = "URL of the gitlab instance to connect to."
   type        = "string"
-  default     = ""
 }
 
 variable "runners_token" {
   description = "Token for the runner, will be used in the runner config.toml"
   type        = "string"
-  default     = "some-token"
 }
 
 variable "runners_limit" {
@@ -178,4 +187,14 @@ variable "tags" {
 variable "allow_iam_service_linked_role_creation" {
   description = "Attach policy to runner instance to create service linked roles."
   default     = true
+}
+
+variable "use_prebacked_ami" {
+  description = "Use prebacked ami for runner by default"
+  default     = 0
+}
+
+variable "bastion_ip" {
+  description = "IP of Bastion instance"
+  type        = "string"
 }

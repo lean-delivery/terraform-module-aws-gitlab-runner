@@ -27,14 +27,13 @@ gitlab-runner register \
   --docker-shm-size "0" \
   --cache-type "s3" \
   --cache-s3-server-address "s3-${aws_region}.amazonaws.com" \
-  --cache-s3-access-key "${bucket_user_access_key}" \
-  --cache-s3-secret-key "${bucket_user_secret_key}" \
   --cache-s3-bucket-name "${bucket_name}" \
   --cache-s3-insecure="false" \
   --machine-idle-nodes "${runners_idle_count}" \
   --machine-idle-time "${runners_idle_time}" \
   --machine-machine-driver "amazonec2" \
   --machine-machine-name "runner-%s" \
+  --machine-machine-options "amazonec2-iam-instance-profile=${bucket_iam_instance_profile}"\
   --machine-machine-options "amazonec2-instance-type=${runners_instance_type}" \
   --machine-machine-options "amazonec2-region=${aws_region}" \
   --machine-machine-options "amazonec2-vpc-id=${runners_vpc_id}" \
@@ -53,7 +52,7 @@ gitlab-runner register \
   --machine-off-peak-periods "${runners_off_peak_periods}" \
   --run-untagged \
   --locked="false" \
-  --tag-list "docker,aws"
+  --tag-list "docker,aws, ${runner_environment_tag}"
 
 service gitlab-runner restart
 chkconfig gitlab-runner on
