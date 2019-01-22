@@ -1,5 +1,6 @@
 # filter by prebacked ami
 data "aws_ami" "custom_ami" {
+  count  = "${var.use_prebacked_ami ? 1 : 0}"
   most_recent = true
   owners      = ["self"]
 

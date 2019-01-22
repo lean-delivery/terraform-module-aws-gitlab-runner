@@ -65,6 +65,7 @@ data "template_file" "gitlab_runner" {
 
 # filter amazon ami
 data "aws_ami" "amazon_optimized_amis" {
+  count  = "${var.use_prebacked_ami ? 0 : 1}"
   most_recent = true
 
   filter {
