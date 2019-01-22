@@ -54,9 +54,9 @@ data "template_file" "gitlab_runner" {
     runners_off_peak_periods    = "${var.runners_off_peak_periods}"
     runners_root_size           = "${var.runners_root_size}"
     runners_use_private_address = "${var.runners_use_private_address}"
-    bucket_user_access_key      = "${aws_iam_access_key.cache_user.id}"
-    bucket_user_secret_key      = "${aws_iam_access_key.cache_user.secret}"
+    bucket_iam_instance_profile = "${aws_iam_instance_profile.iam_bucket.name}"
     bucket_name                 = "${aws_s3_bucket.build_cache.bucket}"
+    runner_environment_tag = "${var.environment}"
 
     runners_config = "${data.template_file.runners.rendered}"
   }
@@ -93,6 +93,7 @@ resource "aws_instance" "gitlab-runner-userdata" {
   user_data                   = "${data.template_file.user_data.rendered}"
   vpc_security_group_ids      = ["${aws_security_group.runner.id}"]
   associate_public_ip_address = false
+  iam_instance_profile = "${aws_iam_instance_profile.instance.name}"
 
   tags = "${local.tags}"
 }

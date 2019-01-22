@@ -193,3 +193,8 @@ variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
   default     = 0
 }
+
+variable "bastion_ip" {
+  description = "IP of Bastion instance"
+  type        = "string"
+}

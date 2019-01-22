@@ -18,6 +18,7 @@ resource "aws_instance" "gitlab-runner-prebacked" {
   subnet_id                   = "${var.subnet_id_proxy}"
   vpc_security_group_ids      = ["${aws_security_group.runner.id}"]
   associate_public_ip_address = false
+  iam_instance_profile = "${aws_iam_instance_profile.instance.name}"
 
   tags = "${local.tags}"
 }

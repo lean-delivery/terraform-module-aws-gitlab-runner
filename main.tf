@@ -21,6 +21,7 @@ resource "aws_security_group" "runner" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
+    #cidr_blocks = ["${var.bastion_ip}/32"] # only from bastion
     cidr_blocks = ["0.0.0.0/0"] # only from bastion
   }
 
@@ -42,14 +43,14 @@ resource "aws_security_group" "docker_machine" {
     from_port   = 2376
     to_port     = 2376
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # only from runner
+    security_groups  = ["${aws_security_group.runner.id}"]  # only from runner
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # only from runner
+    security_groups  = ["${aws_security_group.runner.id}"]  # only from runner
   }
 
   egress {
