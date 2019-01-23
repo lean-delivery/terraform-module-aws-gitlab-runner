@@ -18,12 +18,6 @@ variable "subnet_id_runners" {
   type        = "string"
 }
 
-variable "subnet_id_gitlab_runner" {
-  description = "Subnet used to hosts the proxy."
-  type        = "string"
-  default = ""
-}
-
 variable "availability_zone_runners" {
   description = "Availability zone used to host the docker-machine runners."
   type        = "string"
