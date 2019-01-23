@@ -131,7 +131,7 @@ variable "runners_off_peak_idle_time" {
 variable "runners_off_peak_periods" {
   description = "Off peak periods of the runners, will be used in the runner config.toml."
   type        = "string"
-  default     = ""
+  default     = "* * * * * sat,sun *"
 }
 
 variable "runners_root_size" {
