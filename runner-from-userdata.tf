@@ -90,7 +90,7 @@ resource "aws_instance" "gitlab-runner-userdata" {
   ami                         = "${data.aws_ami.amazon_optimized_amis.id}"
   instance_type               = "${var.instance_type}"
   monitoring                  = false
-  subnet_id                   = "${var.subnet_id_proxy}"
+  subnet_id                   = "${var.subnet_id_gitlab_runner}"
   user_data                   = "${data.template_file.user_data.rendered}"
   vpc_security_group_ids      = ["${aws_security_group.runner.id}"]
   associate_public_ip_address = false
