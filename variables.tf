@@ -18,7 +18,7 @@ variable "subnet_id_runners" {
   type        = "string"
 }
 
-variable "subnet_id_proxy" {
+variable "subnet_id_gitlab_runner" {
   description = "Subnet used to hosts the proxy."
   type        = "string"
   default = ""
