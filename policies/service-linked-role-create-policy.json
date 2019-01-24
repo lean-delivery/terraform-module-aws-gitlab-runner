@@ -5,6 +5,11 @@
       "Effect": "Allow",
       "Action": "iam:CreateServiceLinkedRole",
       "Resource": "arn:aws:iam::*:role/aws-service-role/*"
+    },
+    {
+      "Effect":"Allow",
+      "Action":"iam:PassRole",
+      "Resource":"*"
     }
   ]
 }
