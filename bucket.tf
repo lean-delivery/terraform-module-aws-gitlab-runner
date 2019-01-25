@@ -38,7 +38,7 @@ resource "aws_iam_policy" "instance_role_s3_policy" {
   path        = "/"
   description = "Policy for docker machine."
 
-  policy = "${data.template_file.docker_machine_policy.rendered}"
+  policy = "${data.template_file.instance_role_s3_policy.rendered}"
 }
 
 data "aws_iam_policy_document" "iam-bucket-role-policy" {
