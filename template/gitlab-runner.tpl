@@ -28,6 +28,7 @@ gitlab-runner register \
   --cache-type "s3" \
   --cache-s3-server-address "s3-${aws_region}.amazonaws.com" \
   --cache-s3-bucket-name "${bucket_name}" \
+  --cache-s3-bucket-location "${aws_region}" \
   --cache-s3-insecure="false" \
   --machine-idle-nodes "${runners_idle_count}" \
   --machine-idle-time "${runners_idle_time}" \
