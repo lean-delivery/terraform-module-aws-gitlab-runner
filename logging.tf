@@ -1,3 +1,4 @@
+################################################################################
 data "template_file" "instance_profile" {
   count    = "${var.enable_cloudwatch_logging ? 1 : 0}"
   template = "${file("${path.module}/policies/instance-logging-policy.json")}"

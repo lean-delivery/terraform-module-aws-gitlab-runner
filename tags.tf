@@ -1,3 +1,4 @@
+################################################################################
 locals {
   tags = "${merge(map("Name", format("%s", var.environment)),
               map("Environment", format("%s", var.environment)),
