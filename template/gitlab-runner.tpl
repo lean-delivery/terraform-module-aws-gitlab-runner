@@ -26,7 +26,7 @@ gitlab-runner register \
   --docker-volumes "/cache" \
   --docker-shm-size "0" \
   --cache-type "s3" \
-  --cache-s3-server-address "s3-${aws_region}.amazonaws.com" \
+  --cache-s3-server-address "s3.amazonaws.com" \
   --cache-s3-bucket-name "${bucket_name}" \
   --cache-s3-bucket-location "${aws_region}" \
   --cache-s3-insecure="false" \
