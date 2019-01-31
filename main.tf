@@ -63,7 +63,6 @@ resource "aws_security_group" "docker_machine" {
   tags = "${local.tags}"
 }
 
-# use existing roles (get 'em by  data)
 ################################################################################
 ### Trust policy
 ################################################################################
@@ -126,13 +125,3 @@ resource "aws_iam_role_policy_attachment" "service_linked_role" {
   role       = "${aws_iam_role.instance.name}"
   policy_arn = "${aws_iam_policy.service_linked_role.arn}"
 }
-
-# main file should include one of files below:
-# runner-from-prebacked-ami.tf
-# or
-# runner-from-userdata.tf
-# 
-# by default:
-# runner-from-userdata.tf
-# use filtered policies instead of creating ones
-# logging w\o streaming to anywhere
