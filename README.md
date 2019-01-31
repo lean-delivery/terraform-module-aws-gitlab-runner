@@ -35,15 +35,6 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 
 ## Usage
 
-### Configuration
-Update the variables in `terraform.tfvars` to your needs and add the following variables.
-
-```hcl
-runner_name  = "NAME_OF_YOUR_RUNNER"
-gitlab_url   = "GIT_LAB_URL"
-runner_token  = "RUNNER_TOKEN"
-```
-
 ### Conditional creation
 ```hcl
 module "gitlab-runner" {
