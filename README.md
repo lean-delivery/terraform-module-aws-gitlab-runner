@@ -37,9 +37,8 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 
 ### Conditional creation
 ```hcl
-module "gitlab-runner" {
-  source  = "github.com/lean-delivery/tf-module-aws-gitlab-runner"
-  version = "0.0.0"
+ module "gitlab-runner" {
+  source = "git::https://github.com/lean-delivery/tf-module-aws-gitlab-runner.git?ref=master"
 
   aws_region     = "${var.aws_region}"
   environment    = "${var.environment}"
@@ -50,9 +49,13 @@ module "gitlab-runner" {
   subnet_id_runners         = "${element(module.vpc.private_subnets, 0)}"
   availability_zone_runners = "${var.availability_zone_runners}" 
 
+  # Values below are created during the registration process of the runner.
   runners_name       = "${var.runner_name}"
-  runners_gitlab_url = "${var.gitlab_url}"
-  runners_token      = "${var.runner_token}"
+  runners_gitlab_url = "https://gitlab.com/"
+  runners_token      = "token"
+
+  runners_off_peak_periods = "* * * * * sat,sun *"
+  bastion_ip = "1.2.3.4"
 }
 ```
 ### Examples
@@ -83,8 +86,8 @@ All variables and defaults:
 | runners_name                  | Name of the runner, will be used in the runner config.toml                                                          | string |        -         |   yes    |
 | runners_off_peak_idle_count   | Off peak idle count of the runners, will be used in the runner config.toml.                                         | string |       `0`        |    no    |
 | runners_off_peak_idle_time    | Off peak idle time of the runners, will be used in the runner config.toml.                                          | string |       `0`        |    no    |
-| runners_off_peak_periods      | Off peak periods of the runners, will be used in the runner config.toml.                                            | string |     `` | no      |
-| runners_off_peak_timezone     | Off peak idle time zone of the runners, will be used in the runner config.toml.                                     | string |     `` | no      |
+| runners_off_peak_periods      | Off peak periods of the runners, will be used in the runner config.toml.                                            | string |        ``        |    no    |
+| runners_off_peak_timezone     | Off peak idle time zone of the runners, will be used in the runner config.toml.                                     | string |        ``        |    no    |
 | runners_privilled             | Runners will run in privilled mode, will be used in the runner config.toml                                          | string |      `true`      |    no    |
 | runners_root_size             | Runnner instance root size in GB.                                                                                   | string |       `16`       |    no    |
 | runners_iam_instance_profile_name  | Instance profile to attach to the runners                                                                      | string |        ""        |    no    |
@@ -96,7 +99,11 @@ All variables and defaults:
 | subnet_id_runners             | Subnet used to hosts the docker-machine runners.                                                                    | string |        -         |   yes    |
 | tags                          | Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt. |  map   |     `<map>`      |    no    |
 | vpc_id                        | The VPC that is used for the instances.                                                                             | string |        -         |   yes    |
-
+| availability_zone_proxy       | Availability zone used to host the proxy runner                                                                     | string |        a         |   yes    |
+| custom_ami_filter             | Name of the prebaked ami with gitlab runner proxy preinstalled                                                      | string |        ""        |    no    |
+| allow_iam_service_linked_role_creation  | Attach policy to runner instance to create service linked roles                                           | string |        true      |   yes    |
+| use_prebacked_ami             | Use prebacked ami for runner by default                                                                             | string |        0         |   yes    |
+| bastion_ip                    | IP of Bastion instance                                                                                              | string |        -         |   yes    |
 ## Outputs
 
 ## Tests
