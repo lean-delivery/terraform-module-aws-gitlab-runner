@@ -54,7 +54,6 @@ data "template_file" "gitlab_runner" {
     runners_off_peak_periods    = "${var.runners_off_peak_periods}"
     runners_root_size           = "${var.runners_root_size}"
     runners_use_private_address = "${var.runners_use_private_address}"
-    bucket_iam_instance_profile = "${aws_iam_instance_profile.iam_bucket.name}"
     bucket_name                 = "${aws_s3_bucket.build_cache.bucket}"
     runner_environment_tag = "${var.environment}"
 
