@@ -10,6 +10,7 @@ resource "aws_key_pair" "key" {
   key_name   = "${var.environment}-gitlab-runner"
   public_key = "${var.ssh_public_key}"
 }
+
 ################################################################################
 ### Security groups
 ################################################################################
@@ -39,17 +40,17 @@ resource "aws_security_group" "docker_machine" {
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port   = 2376
-    to_port     = 2376
-    protocol    = "tcp"
-    security_groups  = ["${aws_security_group.runner.id}"]  # only from runner
+    from_port       = 2376
+    to_port         = 2376
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.runner.id}"] # only from runner
   }
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    security_groups  = ["${aws_security_group.runner.id}"]  # only from runner
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = ["${aws_security_group.runner.id}"] # only from runner
   }
 
   egress {

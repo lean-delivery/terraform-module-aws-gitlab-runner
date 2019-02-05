@@ -1,4 +1,3 @@
-
 variable "availability_zone_runners" {
   description = "Availability zone used to host the docker-machine runners."
   type        = "string"

@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "build_cache" {
 data "aws_iam_policy_document" "bucket-policy-doc" {
   statement {
     actions = [
-      "s3:*"
+      "s3:*",
     ]
 
     principals = {
@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "bucket-policy-doc" {
 
     resources = [
       "${aws_s3_bucket.build_cache.arn}/*",
-      "${aws_s3_bucket.build_cache.arn}"
+      "${aws_s3_bucket.build_cache.arn}",
     ]
   }
 }
