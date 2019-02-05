@@ -12,7 +12,7 @@ script:
   - echo 'script'
   - terraform init --input=false
   - terraform fmt -check=true -list=true
-  - terraform validate
+  - terraform validate -check-variables=false
   # We provide Docker images for each version on DockerHub. With docker, you can run TFLint without installing it locally.
   # https://github.com/wata727/tflint
   - docker run --rm -v $(pwd):/app/ --workdir=/app/ -t wata727/tflint --error-with-issues
