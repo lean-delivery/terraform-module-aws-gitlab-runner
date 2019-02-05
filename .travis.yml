@@ -10,11 +10,9 @@ before_script:
   - terraform -v
 script:
   - echo 'script'
-  - echo -e 'provider "aws" {\n  region = "${var.aws_region}"\n}' > test_provider.tf
-  - cat test_provider.tf
   - terraform init --input=false
   - terraform fmt -check=true -list=true
-  - terraform validate
+  - terraform validate -check-variables=false
   # We provide Docker images for each version on DockerHub. With docker, you can run TFLint without installing it locally.
   # https://github.com/wata727/tflint
   - docker run --rm -v $(pwd):/app/ --workdir=/app/ -t wata727/tflint --error-with-issues

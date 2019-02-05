@@ -55,18 +55,16 @@ data "template_file" "gitlab_runner" {
     runners_off_peak_periods    = "${var.runners_off_peak_periods}"
     runners_root_size           = "${var.runners_root_size}"
     runners_use_private_address = "${var.runners_use_private_address}"
-    bucket_iam_instance_profile = "${aws_iam_instance_profile.iam_bucket.name}"
     bucket_name                 = "${aws_s3_bucket.build_cache.bucket}"
-    runner_environment_tag = "${var.environment}"
+    runner_environment_tag      = "${var.environment}"
 
     runners_config = "${data.template_file.runners.rendered}"
   }
 }
 
-
 # filter amazon ami
 data "aws_ami" "amazon_optimized_amis" {
-  count  = "${var.use_prebacked_ami ? 0 : 1}"
+  count       = "${var.use_prebacked_ami ? 0 : 1}"
   most_recent = true
 
   filter {
@@ -76,7 +74,7 @@ data "aws_ami" "amazon_optimized_amis" {
 
   filter {
     name   = "name"
-    values = ["amzn-ami-hvm-2018.*"] 
+    values = ["amzn-ami-hvm-2018.*"]
   }
 
   filter {
@@ -87,7 +85,7 @@ data "aws_ami" "amazon_optimized_amis" {
 
 # create ec2 resourse 
 resource "aws_instance" "gitlab-runner-userdata" {
-  count  = "${var.use_prebacked_ami ? 0 : 1}"
+  count                       = "${var.use_prebacked_ami ? 0 : 1}"
   ami                         = "${data.aws_ami.amazon_optimized_amis.id}"
   instance_type               = "${var.instance_type}"
   monitoring                  = false
@@ -95,7 +93,7 @@ resource "aws_instance" "gitlab-runner-userdata" {
   user_data                   = "${data.template_file.user_data.rendered}"
   vpc_security_group_ids      = ["${aws_security_group.runner.id}"]
   associate_public_ip_address = false
-  iam_instance_profile = "${aws_iam_instance_profile.instance.name}"
+  iam_instance_profile        = "${aws_iam_instance_profile.instance.name}"
 
   tags = "${local.tags}"
 }
