@@ -8,6 +8,11 @@ before_script:
   - sudo ln -s ~/.tfenv/bin/* /usr/local/bin
   - tfenv install latest:^0.11
   - terraform -v
+  - echo 'check credentials'
+  - os_name=$(uname | awk '{print tolower($1)}')
+  - curl -o cred-alert https://s3.amazonaws.com/cred-alert/cli/current-release/cred-alert-cli_${os_name}
+  - chmod 755 cred-alert-cli
+  - ./cred-alert scan -f .
 script:
   - echo 'script'
   - terraform init --input=false
