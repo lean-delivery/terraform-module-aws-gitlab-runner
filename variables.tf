@@ -30,12 +30,6 @@ variable "docker_machine_spot_price_bid" {
   default     = "0.1"
 }
 
-variable "docker_machine_user" {
-  description = "User name for the user to create spot instances to host docker-machine."
-  type        = "string"
-  default     = "docker-machine"
-}
-
 variable "docker_machine_version" {
   description = "Version of docker-machine."
   default     = "0.15.0"
@@ -166,12 +160,6 @@ variable "vpc_id" {
   type        = "string"
 }
 
-variable "availability_zone_proxy" {
-  description = "Availability zone used to host the proxy."
-  type        = "string"
-  default     = "a"
-}
-
 variable "custom_ami_filter" {
   description = "Name of the prebaked ami with gitlab runner proxy preinstalled"
   type        = "string"
@@ -186,9 +174,4 @@ variable "allow_iam_service_linked_role_creation" {
 variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
   default     = 0
-}
-
-variable "bastion_ip" {
-  description = "IP of Bastion instance"
-  type        = "string"
 }

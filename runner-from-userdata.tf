@@ -24,6 +24,10 @@ data "template_file" "runners" {
   }
 }
 
+data "aws_region" "current" {
+  current = true
+}
+
 data "template_file" "gitlab_runner" {
   template = "${file("${path.module}/template/gitlab-runner.tpl")}"
 
@@ -31,7 +35,7 @@ data "template_file" "gitlab_runner" {
     gitlab_runner_version  = "${var.gitlab_runner_version}"
     docker_machine_version = "${var.docker_machine_version}"
 
-    aws_region  = "${var.aws_region}"
+    aws_region  = "${data.aws_region.current.name}"
     gitlab_url  = "${var.runners_gitlab_url}"
     environment = "${var.environment}"
 

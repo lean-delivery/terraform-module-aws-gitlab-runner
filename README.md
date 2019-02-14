@@ -55,7 +55,6 @@ resource "aws_iam_service_linked_role" "autoscaling" {
   runners_token      = "token"
 
   runners_off_peak_periods = "* * * * * sat,sun *"
-  bastion_ip = "1.2.3.4"
 }
 ```
 ### Examples
@@ -71,7 +70,6 @@ All variables and defaults:
 | cache_user                    | User name of the user to create to write and read to the s3 cache.                                                  | string |   `cache_user`   |    no    |
 | docker_machine_instance_type  | Instance type used for the instances hosting docker-machine.                                                        | string |    `m4.large`    |    no    |
 | docker_machine_spot_price_bid | Spot price bid.                                                                                                     | string |      `0.04`      |    no    |
-| docker_machine_user           | User name for the user to create spot instances to host docker-machine.                                             | string | `docker-machine` |    no    |
 | docker_machine_version        | Version of docker-machine.                                                                                          | string |     `0.15.0`     |    no    |
 | enable_cloudwatch_logging     | Enable or disable the CloudWatch logging.                                                                           | string |       `1`        |    no    |
 | environment                   | A name that identifies the environment, will used as prefix and for tagging.                                        | string |        -         |   yes    |
@@ -99,11 +97,10 @@ All variables and defaults:
 | subnet_id_runners             | Subnet used to hosts the docker-machine runners.                                                                    | string |        -         |   yes    |
 | tags                          | Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt. |  map   |     `<map>`      |    no    |
 | vpc_id                        | The VPC that is used for the instances.                                                                             | string |        -         |   yes    |
-| availability_zone_proxy       | Availability zone used to host the proxy runner                                                                     | string |        a         |   yes    |
 | custom_ami_filter             | Name of the prebaked ami with gitlab runner proxy preinstalled                                                      | string |        ""        |    no    |
 | allow_iam_service_linked_role_creation  | Attach policy to runner instance to create service linked roles                                           | string |        true      |   yes    |
 | use_prebacked_ami             | Use prebacked ami for runner by default                                                                             | string |        0         |   yes    |
-| bastion_ip                    | IP of Bastion instance                                                                                              | string |        -         |   yes    |
+
 ## Outputs
 
 ## Tests

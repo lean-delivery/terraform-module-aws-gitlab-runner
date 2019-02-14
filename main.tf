@@ -5,10 +5,6 @@ terraform {
   required_version = ">= 0.11.11"
 }
 
-provider "aws" {
-  region = "${var.aws_region}"
-}
-
 resource "aws_key_pair" "key" {
   key_name   = "${var.environment}-gitlab-runner"
   public_key = "${var.ssh_public_key}"
@@ -25,7 +21,7 @@ resource "aws_security_group" "runner" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.bastion_ip}/32"]
+    self        = "true"
   }
 
   egress {
