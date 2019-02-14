@@ -38,7 +38,7 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 ### Conditional creation
 ```hcl
  module "gitlab-runner" {
-  source = "git::https://github.com/lean-delivery/tf-module-aws-gitlab-runner.git?ref=v1.0.0"
+  source = "git::https://github.com/lean-delivery/tf-module-aws-gitlab-runner.git"
 
   aws_region     = "${var.aws_region}"
   environment    = "${var.environment}"
