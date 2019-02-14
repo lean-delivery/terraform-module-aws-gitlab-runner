@@ -1,49 +1,17 @@
-variable "aws_region" {
-  description = "AWS region."
-  type        = "string"
-}
-
-variable "environment" {
-  description = "A name that identifies the environment, will used as prefix and for tagging."
-  type        = "string"
-}
-
-variable "vpc_id" {
-  description = "The VPC that is used for the instances."
-  type        = "string"
-}
-
-variable "subnet_id_runners" {
-  description = "Subnet used to hosts the docker-machine runners."
-  type        = "string"
-}
-
 variable "availability_zone_runners" {
   description = "Availability zone used to host the docker-machine runners."
   type        = "string"
   default     = "a"
 }
 
-variable "availability_zone_proxy" {
-  description = "Availability zone used to host the proxy."
-  type        = "string"
-  default     = "a"
-}
-
-variable "subnet_id_gitlab_runner" {
-  description = "Subnet used for hosting the gitlab-runner."
+variable "aws_region" {
+  description = "AWS region."
   type        = "string"
 }
 
-variable "instance_type" {
-  description = "Instance type used for the gitlab-runner."
-  type        = "string"
-  default     = "t2.micro"
-}
-
-variable "ssh_public_key" {
-  description = "Public SSH key used for the gitlab-runner ec2 instance."
-  type        = "string"
+variable "cache_expiration_days" {
+  description = "Number of days before cache objects expires."
+  default     = 1
 }
 
 variable "docker_machine_instance_type" {
@@ -61,15 +29,26 @@ variable "docker_machine_version" {
   default     = "0.15.0"
 }
 
-variable "runners_name" {
-  description = "Name of the runner, will be used in the runner config.toml"
+variable "enable_cloudwatch_logging" {
+  description = "Enable or disable the CloudWatch logging."
+  default     = 1
+}
+
+variable "environment" {
+  description = "A name that identifies the environment, will used as prefix and for tagging."
   type        = "string"
 }
 
-variable "custom_ami_filter" {
-  description = "Name of the prebaked ami with gitlab runner proxy preinstalled"
+variable "gitlab_runner_version" {
+  description = "Version for the gitlab runner."
   type        = "string"
-  default     = ""
+  default     = "11.3.1"
+}
+
+variable "instance_type" {
+  description = "Instance type used for the gitlab-runner."
+  type        = "string"
+  default     = "t2.micro"
 }
 
 variable "runners_gitlab_url" {
@@ -113,6 +92,11 @@ variable "runners_monitoring" {
   default     = false
 }
 
+variable "runners_name" {
+  description = "Name of the runner, will be used in the runner config.toml"
+  type        = "string"
+}
+
 variable "runners_off_peak_timezone" {
   description = "Off peak idle time zone of the runners, will be used in the runner config.toml."
   default     = ""
@@ -144,38 +128,36 @@ variable "runners_use_private_address" {
   default     = "true"
 }
 
-variable "docker_machine_user" {
-  description = "User name for the user to create spot instances to host docker-machine."
+variable "ssh_public_key" {
+  description = "Public SSH key used for the gitlab-runner ec2 instance."
   type        = "string"
-  default     = "docker-machine"
 }
 
-variable "cache_user" {
-  description = "User name of the user to create to write and read to the s3 cache."
+variable "subnet_id_gitlab_runner" {
+  description = "Subnet used for hosting the gitlab-runner."
   type        = "string"
-  default     = "cache_user"
 }
 
-variable "cache_expiration_days" {
-  description = "Number of days before cache objects expires."
-  default     = 1
-}
-
-variable "gitlab_runner_version" {
-  description = "Version for the gitlab runner."
+variable "subnet_id_runners" {
+  description = "Subnet used to hosts the docker-machine runners."
   type        = "string"
-  default     = "11.3.1"
-}
-
-variable "enable_cloudwatch_logging" {
-  description = "Enable or disable the CloudWatch logging."
-  default     = 1
 }
 
 variable "tags" {
   type        = "map"
   description = "Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt."
   default     = {}
+}
+
+variable "vpc_id" {
+  description = "The VPC that is used for the instances."
+  type        = "string"
+}
+
+variable "custom_ami_filter" {
+  description = "Name of the prebaked ami with gitlab runner proxy preinstalled"
+  type        = "string"
+  default     = ""
 }
 
 variable "allow_iam_service_linked_role_creation" {
@@ -186,9 +168,4 @@ variable "allow_iam_service_linked_role_creation" {
 variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
   default     = 0
-}
-
-variable "bastion_ip" {
-  description = "IP of Bastion instance"
-  type        = "string"
 }

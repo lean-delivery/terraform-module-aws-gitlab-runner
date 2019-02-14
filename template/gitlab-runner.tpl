@@ -34,7 +34,6 @@ gitlab-runner register \
   --machine-idle-time "${runners_idle_time}" \
   --machine-machine-driver "amazonec2" \
   --machine-machine-name "runner-%s" \
-  --machine-machine-options "amazonec2-iam-instance-profile=${bucket_iam_instance_profile}"\
   --machine-machine-options "amazonec2-instance-type=${runners_instance_type}" \
   --machine-machine-options "amazonec2-region=${aws_region}" \
   --machine-machine-options "amazonec2-vpc-id=${runners_vpc_id}" \

@@ -1,24 +1,39 @@
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "ec2:DescribeKeyPairs",
-        "ec2:TerminateInstances",
-        "ec2:StopInstances",
-        "ec2:StartInstances",
-        "ec2:RebootInstances",
-        "ec2:CreateKeyPair",
-        "ec2:DeleteKeyPair",
-        "ec2:ImportKeyPair",
-        "ec2:Describe*",
-        "ec2:CreateTags",
-        "ec2:RequestSpotInstances",
-        "ec2:CancelSpotInstanceRequests",
-        "ec2:DescribeSubnets"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+      {
+          "Effect": "Allow",
+          "Action": [
+              "ec2:RebootInstances",
+              "ec2:TerminateInstances",
+              "ec2:RequestSpotInstances",
+              "ec2:ImportKeyPair",
+              "ec2:CreateKeyPair",
+              "ec2:CreateTags",
+              "ec2:StopInstances",
+              "ec2:CancelSpotInstanceRequests",
+              "ec2:Describe*",
+              "s3:GetAccountPublicAccessBlock",
+              "s3:ListAllMyBuckets",
+              "ec2:StartInstances",
+              "s3:HeadBucket",
+              "ec2:DescribeSubnets",
+              "ec2:DescribeKeyPairs",
+              "ec2:DeleteKeyPair"
+          ],
+          "Resource": "*"
+      },
+      {
+          "Effect": "Allow",
+          "Action": [
+              "s3:PutObject",
+              "s3:PutObjectAcl",
+              "s3:GetObject",
+              "s3:GetObjectAcl"
+          ],
+          "Resource": [
+              "arn:aws:s3:::*"
+          ]
+      }
   ]
 }
