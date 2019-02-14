@@ -67,7 +67,6 @@ All variables and defaults:
 | availability_zone_runners     | Availability zone for gitlab-runners                                                                                | string |     `a`          |    no    |
 | aws_region                    | AWS region.                                                                                                         | string |        -         |   yes    |
 | cache_expiration_days         | Number of days before cache objects expires.                                                                        | string |       `1`        |    no    |
-| cache_user                    | User name of the user to create to write and read to the s3 cache.                                                  | string |   `cache_user`   |    no    |
 | docker_machine_instance_type  | Instance type used for the instances hosting docker-machine.                                                        | string |    `m4.large`    |    no    |
 | docker_machine_spot_price_bid | Spot price bid.                                                                                                     | string |      `0.04`      |    no    |
 | docker_machine_version        | Version of docker-machine.                                                                                          | string |     `0.15.0`     |    no    |

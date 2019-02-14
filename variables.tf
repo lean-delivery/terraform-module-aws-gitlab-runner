@@ -9,12 +9,6 @@ variable "aws_region" {
   type        = "string"
 }
 
-variable "cache_user" {
-  description = "User name of the user to create to write and read to the s3 cache."
-  type        = "string"
-  default     = "cache_user"
-}
-
 variable "cache_expiration_days" {
   description = "Number of days before cache objects expires."
   default     = 1
