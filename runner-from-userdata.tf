@@ -24,9 +24,7 @@ data "template_file" "runners" {
   }
 }
 
-data "aws_region" "current" {
-  current = true
-}
+data "aws_region" "current" {}
 
 data "template_file" "gitlab_runner" {
   template = "${file("${path.module}/template/gitlab-runner.tpl")}"
@@ -68,6 +66,7 @@ data "template_file" "gitlab_runner" {
 
 # filter amazon ami
 data "aws_ami" "amazon_optimized_amis" {
+  owners = ["self", "amazon"]
   count       = "${var.use_prebacked_ami ? 0 : 1}"
   most_recent = true
 
