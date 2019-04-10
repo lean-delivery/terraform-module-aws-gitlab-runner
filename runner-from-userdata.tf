@@ -66,7 +66,7 @@ data "template_file" "gitlab_runner" {
 
 # filter amazon ami
 data "aws_ami" "amazon_optimized_amis" {
-  owners = ["self", "amazon"]
+  owners      = ["self", "amazon"]
   count       = "${var.use_prebacked_ami ? 0 : 1}"
   most_recent = true
 
