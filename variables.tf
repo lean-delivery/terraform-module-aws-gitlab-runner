@@ -98,7 +98,7 @@ variable "runners_name" {
 }
 
 variable "runners_image" {
-  description = "Image to run builds, will be used in the runner."
+  description = "Image to run builds, will be used in the runner config.toml"
   type        = "string"
   default     = "docker:stable"
 }
