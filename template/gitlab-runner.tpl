@@ -19,7 +19,7 @@ gitlab-runner register \
   --registration-token "${runners_token}" \
   --limit ${runners_limit} \
   --executor "docker+machine" \
-  --docker-image "docker:stable" \
+  --docker-image "${runners_image}" \
   --docker-privileged="${runners_privilled}" \
   --docker-disable-cache="false" \
   --docker-volumes "/var/run/docker.sock:/var/run/docker.sock" \

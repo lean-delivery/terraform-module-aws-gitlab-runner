@@ -47,7 +47,7 @@ resource "aws_iam_service_linked_role" "autoscaling" {
   vpc_id                    = "${module.vpc.vpc_id}"
   subnet_id_gitlab_runner   = "${element(module.vpc.private_subnets, 0)}"
   subnet_id_runners         = "${element(module.vpc.private_subnets, 0)}"
-  availability_zone_runners = "${var.availability_zone_runners}" 
+  availability_zone_runners = "${var.availability_zone_runners}"
 
   # Values below are created during the registration process of the runner.
   runners_name       = "${var.runner_name}"
@@ -81,6 +81,7 @@ All variables and defaults:
 | runners_limit                 | Limit for the runners, will be used in the runner config.toml                                                       | string |       `0`        |    no    |
 | runners_monitoring            | Enable detailed cloudwatch monitoring for spot instances.                                                           | string |     `false`      |    no    |
 | runners_name                  | Name of the runner, will be used in the runner config.toml                                                          | string |        -         |   yes    |
+| runners_image                 | Image to run builds, will be used in the runner config.toml                                                          | string |        -         |   yes    |
 | runners_off_peak_idle_count   | Off peak idle count of the runners, will be used in the runner config.toml.                                         | string |       `0`        |    no    |
 | runners_off_peak_idle_time    | Off peak idle time of the runners, will be used in the runner config.toml.                                          | string |       `0`        |    no    |
 | runners_off_peak_periods      | Off peak periods of the runners, will be used in the runner config.toml.                                            | string |        ``        |    no    |
