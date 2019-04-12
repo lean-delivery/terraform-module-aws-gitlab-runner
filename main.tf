@@ -34,6 +34,16 @@ resource "aws_security_group" "runner" {
   tags = "${local.tags}"
 }
 
+resource "aws_security_group_rule" "ssh_from_cidr_blocks" {
+  count             = "${length(var.allow_ssh_cidr_blocks) != 0 ? 1 : 0}"
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["${var.allow_ssh_cidr_blocks}"]
+  security_group_id = "${aws_security_group.runner.id}"
+}
+
 resource "aws_security_group" "docker_machine" {
   name_prefix = "${var.environment}-docker-machine"
   vpc_id      = "${var.vpc_id}"

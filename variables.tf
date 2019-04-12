@@ -169,3 +169,9 @@ variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
   default     = 0
 }
+
+variable "allow_ssh_cidr_blocks" {
+  description = "List of cidr blocks to allow ssh"
+  type        = "list"
+  default     = []
+}
