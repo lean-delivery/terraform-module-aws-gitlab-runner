@@ -3,6 +3,11 @@ output "gitlab_runner_role" {
   description = "Role for gitlabrunners"
 }
 
+output "gitlab_runner_workers_role" {
+  value       = "${aws_iam_role.runner.name}"
+  description = "Role for docker hosts spawned by gitlab runner"
+}
+
 output "gitlab_runner_security_group_id" {
   value       = "${aws_security_group.runner.id}"
   description = "Runner's security group ID"
