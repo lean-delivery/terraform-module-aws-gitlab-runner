@@ -1,9 +1,9 @@
-output "gitlab_runner_role" {
+output "gitlab_runner_role_name" {
   value       = "${aws_iam_role.instance.name}"
   description = "Role for gitlabrunners"
 }
 
-output "gitlab_runner_workers_role" {
+output "gitlab_runner_workers_role_name" {
   value       = "${aws_iam_role.runner.name}"
   description = "Role for docker hosts spawned by gitlab runner"
 }

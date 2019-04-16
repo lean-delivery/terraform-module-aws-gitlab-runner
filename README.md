@@ -125,8 +125,8 @@ All variables and defaults:
 ## Outputs
 Name  	      				| Description
 ----------------------------------------|--------------------------------------------
-gitlab_runner_role  			| gitlab runner role
-gitlab_runner_workers_role  		| role that will be assigned to workers
+gitlab_runner_role_name  		| role name that will be assigned to gitlab runner
+gitlab_runner_workers_role_name  	| role name that will be assigned to workers
 gitlab_runner_security_group_id 	| security group id attached to gitlab runner
 gitlab_docker_machine_security_group_id | security group id attached to workers
 
