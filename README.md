@@ -123,10 +123,12 @@ All variables and defaults:
 | use_prebacked_ami             | Use prebacked ami for runner by default                                                                             | string |        0         |   yes    |
 
 ## Outputs
-* gitlab_runner_role - gitlab runner role
-* gitlab_runner_workers_role - role that will be assigned to workers 
-* gitlab_runner_security_group_id - security group id attached to gitlab runner
-* gitlab_docker_machine_security_group_id  security group id attached to workers
+Name  	      				| Description
+----------------------------------------|--------------------------------------------
+gitlab_runner_role  			| gitlab runner role
+gitlab_runner_workers_role  		| role that will be assigned to workers
+gitlab_runner_security_group_id 	| security group id attached to gitlab runner
+gitlab_docker_machine_security_group_id | security group id attached to workers
 
 ## Tests
 
