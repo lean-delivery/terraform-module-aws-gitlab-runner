@@ -59,7 +59,7 @@ data "template_file" "gitlab_runner" {
     runners_use_private_address = "${var.runners_use_private_address}"
     bucket_name                 = "${aws_s3_bucket.build_cache.bucket}"
     runner_environment_tag      = "${var.environment}"
-    instance-profile-name       = "${aws_iam_instance_profile.runner.name}"
+    instance_profile_name       = "${aws_iam_instance_profile.runner.name}"
     runners_config              = "${data.template_file.runners.rendered}"
   }
 }

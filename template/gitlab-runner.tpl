@@ -43,7 +43,7 @@ gitlab-runner register \
   --machine-machine-options "amazonec2-request-spot-instance=true" \
   --machine-machine-options "amazonec2-spot-price=${runners_spot_price_bid}" \
   --machine-machine-options "amazonec2-security-group=${runners_security_group_name}" \
-  --machine-machine-options "amazonec2-iam-instance-profile=${instance-profile-name}" \
+  --machine-machine-options "amazonec2-iam-instance-profile=${instance_profile_name}" \
   --machine-machine-options "amazonec2-tags=environment,${environment}" \
   --machine-machine-options "amazonec2-monitoring=${runners_monitoring}" \
   --machine-machine-options "amazonec2-root-size=${runners_root_size}" \
