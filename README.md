@@ -103,7 +103,7 @@ All variables and defaults:
 | runners_limit                 | Limit for the runners, will be used in the runner config.toml                                                       | string |       `0`        |    no    |
 | runners_monitoring            | Enable detailed cloudwatch monitoring for spot instances.                                                           | string |     `false`      |    no    |
 | runners_name                  | Name of the runner, will be used in the runner config.toml                                                          | string |        -         |   yes    |
-| runners_image                 | Image to run builds, will be used in the runner config.toml                                                          | string |        -         |   no    |
+| runners_image                 | Image to run builds, will be used in the runner config.toml                                                         | string |        `docker:stable`         |   no    |
 | runners_off_peak_idle_count   | Off peak idle count of the runners, will be used in the runner config.toml.                                         | string |       `0`        |    no    |
 | runners_off_peak_idle_time    | Off peak idle time of the runners, will be used in the runner config.toml.                                          | string |       `0`        |    no    |
 | runners_off_peak_periods      | Off peak periods of the runners, will be used in the runner config.toml.                                            | string |        ``        |    no    |
