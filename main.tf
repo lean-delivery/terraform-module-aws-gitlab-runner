@@ -63,6 +63,21 @@ resource "aws_security_group" "docker_machine" {
 }
 
 ################################################################################
+### Runner blank role
+################################################################################
+resource "aws_iam_role" "runner" {
+  name = "${var.environment}-runner-role"
+
+  #The policy that grants an entity permission to assume the role
+  assume_role_policy = "${data.template_file.instance_role_trust_policy.rendered}"
+}
+
+resource "aws_iam_instance_profile" "runner" {
+  name = "${var.environment}-runner-profile"
+  role = "${aws_iam_role.runner.name}"
+}
+
+################################################################################
 ### Trust policy
 ################################################################################
 resource "aws_iam_instance_profile" "instance" {

@@ -33,6 +33,28 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 }
 ```
 
+### Workers linked role
+Empty role will be created. 
+```hcl
+resource "aws_iam_role" "runner" {
+  name = "${var.environment}-runner-role"
+
+  #The policy that grants an entity permission to assume the role
+  assume_role_policy = "${data.template_file.instance_role_trust_policy.rendered}"
+}
+
+resource "aws_iam_instance_profile" "runner" {
+  name = "${var.environment}-runner-profile"
+  role = "${aws_iam_role.runner.name}"
+}
+```
+
+This role will be passed as an argument to
+docker-machine aws cloud provider driver (--amazonec2-iam-instance-profile please refer to [docker-machine aws driver docs](https://docs.docker.com/machine/drivers/aws/) 
+for more detailed info) and docker hosts will be spawned with it. You can refer to this role via
+module output and  attach all required policies for your workflow 
+
+
 ## Usage
 
 ### Conditional creation
@@ -102,6 +124,12 @@ All variables and defaults:
 | use_prebacked_ami             | Use prebacked ami for runner by default                                                                             | string |        0         |   yes    |
 
 ## Outputs
+Name  	      				| Description
+----------------------------------------|--------------------------------------------
+gitlab_runner_role  			| role name that will be assigned to gitlab runner
+gitlab_runner_workers_role_name  	| role name that will be assigned to workers
+gitlab_runner_security_group_id 	| security group id attached to gitlab runner
+gitlab_docker_machine_security_group_id | security group id attached to workers
 
 ## Tests
 
