@@ -34,7 +34,7 @@ resource "aws_iam_service_linked_role" "autoscaling" {
 ```
 
 ### Workers linked role
-Empty role will be created. 
+Empty role will be created.
 ```hcl
 resource "aws_iam_role" "runner" {
   name = "${var.environment}-runner-role"
@@ -50,9 +50,9 @@ resource "aws_iam_instance_profile" "runner" {
 ```
 
 This role will be passed as an argument to
-docker-machine aws cloud provider driver (--amazonec2-iam-instance-profile please refer to [docker-machine aws driver docs](https://docs.docker.com/machine/drivers/aws/) 
+docker-machine aws cloud provider driver (--amazonec2-iam-instance-profile please refer to [docker-machine aws driver docs](https://docs.docker.com/machine/drivers/aws/)
 for more detailed info) and docker hosts will be spawned with it. You can refer to this role via
-module output and  attach all required policies for your workflow 
+module output and  attach all required policies for your workflow
 
 
 ## Usage
@@ -103,7 +103,7 @@ All variables and defaults:
 | runners_limit                 | Limit for the runners, will be used in the runner config.toml                                                       | string |       `0`        |    no    |
 | runners_monitoring            | Enable detailed cloudwatch monitoring for spot instances.                                                           | string |     `false`      |    no    |
 | runners_name                  | Name of the runner, will be used in the runner config.toml                                                          | string |        -         |   yes    |
-| runners_image                 | Image to run builds, will be used in the runner config.toml                                                          | string |        -         |   yes    |
+| runners_image                 | Image to run builds, will be used in the runner config.toml                                                          | string |        -         |   no    |
 | runners_off_peak_idle_count   | Off peak idle count of the runners, will be used in the runner config.toml.                                         | string |       `0`        |    no    |
 | runners_off_peak_idle_time    | Off peak idle time of the runners, will be used in the runner config.toml.                                          | string |       `0`        |    no    |
 | runners_off_peak_periods      | Off peak periods of the runners, will be used in the runner config.toml.                                            | string |        ``        |    no    |
