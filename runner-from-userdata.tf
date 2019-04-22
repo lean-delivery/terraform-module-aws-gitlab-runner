@@ -45,6 +45,7 @@ data "template_file" "gitlab_runner" {
     runners_security_group_name = "${aws_security_group.docker_machine.name}"
     runners_monitoring          = "${var.runners_monitoring}"
     runners_name                = "${var.runners_name}"
+    runners_image               = "${var.runners_image}"
     runners_token               = "${var.runners_token}"
     runners_limit               = "${var.runners_limit}"
     runners_concurrent          = "${var.runners_concurrent}"
@@ -86,7 +87,7 @@ data "aws_ami" "amazon_optimized_amis" {
   }
 }
 
-# create ec2 resourse 
+# create ec2 resourse
 resource "aws_instance" "gitlab-runner-userdata" {
   count                       = "${var.use_prebacked_ami ? 0 : 1}"
   ami                         = "${data.aws_ami.amazon_optimized_amis.id}"

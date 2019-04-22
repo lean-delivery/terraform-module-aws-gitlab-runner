@@ -97,6 +97,12 @@ variable "runners_name" {
   type        = "string"
 }
 
+variable "runners_image" {
+  description = "Image to run builds, will be used in the runner config.toml"
+  type        = "string"
+  default     = "docker:stable"
+}
+
 variable "runners_off_peak_timezone" {
   description = "Off peak idle time zone of the runners, will be used in the runner config.toml."
   default     = ""
