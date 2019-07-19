@@ -53,7 +53,7 @@ gitlab-runner register \
   --machine-off-peak-periods "${runners_off_peak_periods}" \
   --run-untagged \
   --locked="false" \
-  --tag-list "docker,aws, ${runner_environment_tag}"
+  --tag-list "aws, ${runner_environment_tag}"
 
 service gitlab-runner restart
 chkconfig gitlab-runner on
