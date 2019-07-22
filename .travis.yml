@@ -20,7 +20,7 @@ script:
   - terraform validate -check-variables=false
   # We provide Docker images for each version on DockerHub. With docker, you can run TFLint without installing it locally.
   # https://github.com/wata727/tflint
-  - docker run --rm -v $(pwd):/app/ --workdir=/app/ -t wata727/tflint:0.9.2 --error-with-issues
+  - docker run --rm -v $(pwd):/app/ --workdir=/app/ -t wata727/tflint:0.8.3 --error-with-issues
   # Collection of security and best practice test for static code analysis of terraform templates.
   # This is terrascan wrapper.
   # https://github.com/tmknom/terrascan
