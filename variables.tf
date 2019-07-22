@@ -175,3 +175,8 @@ variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
   default     = 0
 }
+
+variable "runner_tags" {
+  type        = "list"
+  description = "list of tags to assign to gitlab runner"
+}

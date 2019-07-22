@@ -62,6 +62,7 @@ data "template_file" "gitlab_runner" {
     runner_environment_tag      = "${var.environment}"
     instance_profile_name       = "${aws_iam_instance_profile.runner.name}"
     runners_config              = "${data.template_file.runners.rendered}"
+    runner_tags                 = "${join(",", var.runner_tags)}"
   }
 }
 
