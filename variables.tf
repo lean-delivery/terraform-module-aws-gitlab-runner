@@ -179,4 +179,5 @@ variable "use_prebacked_ami" {
 variable "runner_tags" {
   type        = "list"
   description = "list of tags to assign to gitlab runner"
+  default     = ["docker"]
 }
