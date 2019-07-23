@@ -122,7 +122,7 @@ All variables and defaults:
 | custom_ami_filter             | Name of the prebaked ami with gitlab runner proxy preinstalled                                                      | string |        ""        |    no    |
 | allow_iam_service_linked_role_creation  | Attach policy to runner instance to create service linked roles                                           | string |        true      |   yes    |
 | use_prebacked_ami             | Use prebacked ami for runner by default                                                                             | string |        0         |   yes    |
-| runner_rags			| List of tags to assign to gitlab runner besides aws								      | list   |        - 
+| runner_tags			| List of tags to assign to gitlab runner besides aws								      | list   |        -	  |   yes    |	
 
 ## Outputs
 Name  	      				| Description
