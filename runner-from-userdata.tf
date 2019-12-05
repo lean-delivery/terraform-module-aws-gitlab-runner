@@ -92,6 +92,7 @@ resource "aws_instance" "gitlab-runner-userdata" {
   count                       = "${var.use_prebacked_ami ? 0 : 1}"
   ami                         = "${data.aws_ami.amazon_optimized_amis.id}"
   instance_type               = "${var.instance_type}"
+  key_name                    = "${aws_key_pair.key.key_name}"
   monitoring                  = false
   subnet_id                   = "${var.subnet_id_gitlab_runner}"
   user_data                   = "${data.template_file.user_data.rendered}"
