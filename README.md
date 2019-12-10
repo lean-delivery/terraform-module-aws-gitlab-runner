@@ -115,6 +115,7 @@ All variables and defaults:
 | runners_use_private_address   | Restrict runners to use only private address                                                                        | string |      `true`      |    no    |
 | runners_token                 | Token for the runner, will be used in the runner config.toml                                                        | string |        -         |   yes    |
 | ssh_public_key                | Public SSH key used for the gitlab-runner ec2 instance.                                                             | string |        -         |   yes    |
+| use_public_key                | Insert public SSH key into gitlab-runner ec2 instance.                                                              |  bool  |     `false`      |    no    |
 | subnet_id_gitlab_runner       | Subnet used for hosting the gitlab-runner.                                                                          | string |        -         |   yes    |
 | subnet_id_runners             | Subnet used to hosts the docker-machine runners.                                                                    | string |        -         |   yes    |
 | tags                          | Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt. |  map   |     `<map>`      |    no    |
@@ -122,7 +123,7 @@ All variables and defaults:
 | custom_ami_filter             | Name of the prebaked ami with gitlab runner proxy preinstalled                                                      | string |        ""        |    no    |
 | allow_iam_service_linked_role_creation  | Attach policy to runner instance to create service linked roles                                           | string |        true      |   yes    |
 | use_prebacked_ami             | Use prebacked ami for runner by default                                                                             | string |        0         |   yes    |
-| runner_tags			| List of tags to assign to gitlab runner besides aws								      | list   |    ["docker"]	  |   no     |	
+| runner_tags			| List of tags to assign to gitlab runner besides aws								      | list   |    ["docker"]	  |   no     |
 
 ## Outputs
 Name  	      				| Description

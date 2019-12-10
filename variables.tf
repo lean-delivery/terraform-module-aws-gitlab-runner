@@ -139,6 +139,11 @@ variable "ssh_public_key" {
   type        = "string"
 }
 
+variable "use_public_key" {
+  description = "Insert public SSH key into gitlab-runner ec2 instance."
+  default     = false
+}
+
 variable "subnet_id_gitlab_runner" {
   description = "Subnet used for hosting the gitlab-runner."
   type        = "string"

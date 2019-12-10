@@ -16,3 +16,12 @@ done
 ${logging}
 
 ${gitlab_runner}
+
+# install OS security updates
+cat >> /var/spool/cron/root << EOF
+## ED-7287
+0 3,12 * * * /bin/yum update -y --security -q &> /dev/null
+EOF
+
+# install aws inspector
+curl https://inspector-agent.amazonaws.com/linux/latest/install  | sudo bash
