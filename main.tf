@@ -6,6 +6,7 @@ terraform {
 }
 
 resource "aws_key_pair" "key" {
+  count      = "${var.use_public_key ? 1 : 0}"
   key_name   = "${var.environment}-gitlab-runner"
   public_key = "${var.ssh_public_key}"
 }
