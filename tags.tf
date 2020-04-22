@@ -1,8 +1,8 @@
 ################################################################################
 locals {
   tags = merge(map("Name", format("%s", var.environment)),
-              map("Environment", format("%s", var.environment)),
-              var.tags)
+    map("Environment", format("%s", var.environment)),
+  var.tags)
 }
 
 data "null_data_source" "tags" {
