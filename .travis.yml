@@ -1,35 +1,19 @@
 dist: xenial
 sudo: required
+
+language: python
+python:
+  - "2.7"
+
 services:
   - docker
-before_script:
-  - echo 'before_script'
-  - git clone https://github.com/kamatama41/tfenv.git ~/.tfenv
-  - sudo ln -s ~/.tfenv/bin/* /usr/local/bin
-  - tfenv install latest:^0.11
-  - terraform -v
-  - echo 'check credentials'
-  - os_name=$(uname | awk '{print tolower($1)}')
-  - curl -o cred-alert https://s3.amazonaws.com/cred-alert/cli/current-release/cred-alert-cli_${os_name}
-  - chmod 755 cred-alert
-  - ./cred-alert scan -f .
+
 script:
-  - echo 'script'
-  - terraform init --input=false
-  - terraform fmt -check=true -list=true
-  - terraform validate -check-variables=false
-  # We provide Docker images for each version on DockerHub. With docker, you can run TFLint without installing it locally.
-  # https://github.com/wata727/tflint
-  - docker run --rm -v $(pwd):/app/ --workdir=/app/ -t wata727/tflint:0.8.3 --error-with-issues
-  # Collection of security and best practice test for static code analysis of terraform templates.
-  # This is terrascan wrapper.
-  # https://github.com/tmknom/terrascan
-  - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t tmknom/terrascan --location . --test all
-  #- cd examples/some_tests
-  #- terraform init
-  #- terraform fmt -check=true
-  #- terraform validate
-  #- cd -
-  - terraform -v
-notifications:
-  email: false
+  - export AWS_REGION='us-east-1'
+  - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t leandelivery/docker-terraform-ci:tf-12-support terraform init
+  - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t leandelivery/docker-terraform-ci:tf-12-support terraform fmt -check=true
+  - docker run --rm -v $(pwd):/work/ --workdir=/work/ -e AWS_REGION='us-east-1' -t leandelivery/docker-terraform-ci:tf-12-support terraform validate
+  # - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t leandelivery/docker-terraform-ci:tf-12-support tf_readme_validator.py // should be replaced with https://github.com/hashicorp/terraform-config-inspect
+  - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t leandelivery/docker-terraform-ci:tf-12-support cred-alert scan -f .
+  - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t leandelivery/docker-terraform-ci:tf-12-support tflint -c .tflint.hcl
+  # - docker run --rm -v $(pwd):/work/ --workdir=/work/ -t leandelivery/docker-terraform-ci:tf-12-support terrascan --location . --test all // Project is dead, last commit 8 month ago https://github.com/cesar-rodriguez/terrascan
