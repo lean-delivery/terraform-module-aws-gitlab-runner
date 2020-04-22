@@ -32,7 +32,8 @@ variable "docker_machine_version" {
 
 variable "enable_cloudwatch_logging" {
   description = "Enable or disable the CloudWatch logging."
-  default     = 1
+  type        = bool
+  default     = "true"
 }
 
 variable "environment" {
@@ -174,7 +175,8 @@ variable "allow_iam_service_linked_role_creation" {
 
 variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
-  default     = 0
+  type        = bool
+  default     = "false"
 }
 
 variable "runner_tags" {
