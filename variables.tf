@@ -152,7 +152,7 @@ variable "subnet_id_runners" {
 }
 
 variable "tags" {
-  type        = map(string)
+  type        = map(any)
   description = "Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt."
   default     = {}
 }

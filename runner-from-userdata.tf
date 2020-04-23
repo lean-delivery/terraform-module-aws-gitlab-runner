@@ -98,7 +98,7 @@ resource "aws_instance" "gitlab-runner-userdata" {
   vpc_security_group_ids      = [aws_security_group.runner.id]
   associate_public_ip_address = false
   iam_instance_profile        = aws_iam_instance_profile.instance.name
-  key_name                    = aws_key_pair.key[count.index].key_name
+  key_name                    = var.use_public_key ? aws_key_pair.key[count.index].key_name : ""
 
   tags = local.tags
 }
