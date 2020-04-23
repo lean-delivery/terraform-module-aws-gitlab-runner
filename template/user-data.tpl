@@ -13,6 +13,14 @@ do
   yum -y update  && break || sleep 60
 done
 
+# install OS security updates
+cat >> /var/spool/cron/root << EOF
+0 3,12 * * * /bin/yum update -y --security -q &> /dev/null
+EOF
+
+# Install AWS inspector
+curl https://inspector-agent.amazonaws.com/linux/latest/install  | sudo bash
+
 ${logging}
 
 ${gitlab_runner}
