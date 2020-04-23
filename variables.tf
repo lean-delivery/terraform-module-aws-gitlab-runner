@@ -184,3 +184,9 @@ variable "runner_tags" {
   description = "list of tags to assign to gitlab runner"
   default     = ["docker"]
 }
+
+variable "use_public_key" {
+  description = "Insert public SSH key into gitlab-runner ec2 instance."
+  type        = bool
+  default     = "false"
+}
