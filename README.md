@@ -137,7 +137,7 @@ gitlab_docker_machine_security_group_id | security group id attached to workers
 ## Terraform versions
 
 ## Contributing
-Thank you for your interest in contributing! Please refer to [CONTRIBUTING.md](https://github.com/lean-delivery/tf-module-aws-gitlab-runner/CONTRIBUTING.md) for guidance.
+Thank you for your interest in contributing! Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for guidance.
 
 ## License
 Apache
