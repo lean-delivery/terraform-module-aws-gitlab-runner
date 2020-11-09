@@ -2,7 +2,7 @@
 data "template_file" "user_data" {
   template = file("${path.module}/template/user-data.tpl")
 
-  vars {
+  vars = {
     logging       = var.enable_cloudwatch_logging ? data.template_file.logging.rendered : ""
     gitlab_runner = data.template_file.gitlab_runner.rendered
   }
@@ -11,7 +11,7 @@ data "template_file" "user_data" {
 data "template_file" "logging" {
   template = file("${path.module}/template/logging.tpl")
 
-  vars {
+  vars = {
     environment = var.environment
   }
 }
@@ -19,7 +19,7 @@ data "template_file" "logging" {
 data "template_file" "runners" {
   template = file("${path.module}/template/runner-config.tpl")
 
-  vars {
+  vars = {
     runners_concurrent = var.runners_concurrent
   }
 }
@@ -29,7 +29,7 @@ data "aws_region" "current" {}
 data "template_file" "gitlab_runner" {
   template = file("${path.module}/template/gitlab-runner.tpl")
 
-  vars {
+  vars = {
     gitlab_runner_version  = var.gitlab_runner_version
     docker_machine_version = var.docker_machine_version
 
