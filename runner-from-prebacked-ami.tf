@@ -13,7 +13,7 @@ data "aws_ami" "custom_ami" {
 # create ec2 resourse 
 resource "aws_instance" "gitlab-runner-prebacked" {
   count                       = var.use_prebacked_ami ? 1 : 0
-  ami                         = data.aws_ami.custom_ami.id
+  ami                         = data.aws_ami.custom_ami[0].id
   instance_type               = var.instance_type
   monitoring                  = false
   subnet_id                   = var.subnet_id_gitlab_runner

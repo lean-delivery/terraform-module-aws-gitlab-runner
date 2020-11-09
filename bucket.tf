@@ -31,14 +31,14 @@ data "aws_iam_policy_document" "bucket-policy-doc" {
       "s3:*",
     ]
 
-    principals = {
+    principals {
       type        = "AWS"
       identifiers = [aws_iam_role.instance.arn]
     }
 
     resources = [
       "${aws_s3_bucket.build_cache.arn}/*",
-      "${aws_s3_bucket.build_cache.arn}",
+      aws_s3_bucket.build_cache.arn,
     ]
   }
 }
