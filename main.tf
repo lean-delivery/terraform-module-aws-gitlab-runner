@@ -7,7 +7,7 @@ terraform {
 
 resource "aws_key_pair" "key" {
   key_name   = "${var.environment}-gitlab-runner"
-  public_key = "${var.ssh_public_key}"
+  public_key = var.ssh_public_key
 }
 
 ################################################################################
@@ -15,13 +15,13 @@ resource "aws_key_pair" "key" {
 ################################################################################
 resource "aws_security_group" "runner" {
   name_prefix = "${var.environment}-security-group"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-    self      = "true"
+    self      = true
   }
 
   egress {
@@ -31,25 +31,25 @@ resource "aws_security_group" "runner" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 resource "aws_security_group" "docker_machine" {
   name_prefix = "${var.environment}-docker-machine"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port       = 2376
     to_port         = 2376
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.runner.id}"] # only from runner
+    security_groups = [aws_security_group.runner.id] # only from runner
   }
 
   ingress {
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
-    security_groups = ["${aws_security_group.runner.id}"] # only from runner
+    security_groups = [aws_security_group.runner.id] # only from runner
   }
 
   egress {
@@ -59,7 +59,7 @@ resource "aws_security_group" "docker_machine" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = "${local.tags}"
+  tags = local.tags
 }
 
 ################################################################################
@@ -69,12 +69,12 @@ resource "aws_iam_role" "runner" {
   name = "${var.environment}-runner-role"
 
   #The policy that grants an entity permission to assume the role
-  assume_role_policy = "${data.template_file.instance_role_trust_policy.rendered}"
+  assume_role_policy = data.template_file.instance_role_trust_policy.rendered
 }
 
 resource "aws_iam_instance_profile" "runner" {
   name = "${var.environment}-runner-profile"
-  role = "${aws_iam_role.runner.name}"
+  role = aws_iam_role.runner.name
 }
 
 ################################################################################
@@ -82,23 +82,23 @@ resource "aws_iam_instance_profile" "runner" {
 ################################################################################
 resource "aws_iam_instance_profile" "instance" {
   name = "${var.environment}-instance-profile"
-  role = "${aws_iam_role.instance.name}"
+  role = aws_iam_role.instance.name
 }
 
 data "template_file" "instance_role_trust_policy" {
-  template = "${file("${path.module}/policies/instance-role-trust-policy.json")}"
+  template = file("${path.module}/policies/instance-role-trust-policy.json")
 }
 
 resource "aws_iam_role" "instance" {
   name               = "${var.environment}-instance-role"
-  assume_role_policy = "${data.template_file.instance_role_trust_policy.rendered}"
+  assume_role_policy = data.template_file.instance_role_trust_policy.rendered
 }
 
 ################################################################################
 ### docker machine instance policy
 ################################################################################
 data "template_file" "docker_machine_policy" {
-  template = "${file("${path.module}/policies/instance-docker-machine-policy.json")}"
+  template = file("${path.module}/policies/instance-docker-machine-policy.json")
 }
 
 resource "aws_iam_policy" "docker_machine" {
@@ -106,36 +106,36 @@ resource "aws_iam_policy" "docker_machine" {
   path        = "/"
   description = "Policy for docker machine."
 
-  policy = "${data.template_file.docker_machine_policy.rendered}"
+  policy = data.template_file.docker_machine_policy.rendered
 }
 
 resource "aws_iam_role_policy_attachment" "docker_machine" {
-  role       = "${aws_iam_role.instance.name}"
-  policy_arn = "${aws_iam_policy.docker_machine.arn}"
+  role       = aws_iam_role.instance.name
+  policy_arn = aws_iam_policy.docker_machine.arn
 }
 
 ################################################################################
 ### Service linked policy, optional
 ################################################################################
 data "template_file" "service_linked_role" {
-  count = "${var.allow_iam_service_linked_role_creation ? 1 : 0}"
+  count = var.allow_iam_service_linked_role_creation ? 1 : 0
 
-  template = "${file("${path.module}/policies/service-linked-role-create-policy.json")}"
+  template = file("${path.module}/policies/service-linked-role-create-policy.json")
 }
 
 resource "aws_iam_policy" "service_linked_role" {
-  count = "${var.allow_iam_service_linked_role_creation ? 1 : 0}"
+  count = var.allow_iam_service_linked_role_creation ? 1 : 0
 
   name        = "${var.environment}-service_linked_role"
   path        = "/"
   description = "Policy for creation of service linked roles."
 
-  policy = "${data.template_file.service_linked_role.rendered}"
+  policy = data.template_file.service_linked_role.rendered
 }
 
 resource "aws_iam_role_policy_attachment" "service_linked_role" {
-  count = "${var.allow_iam_service_linked_role_creation ? 1 : 0}"
+  count = var.allow_iam_service_linked_role_creation ? 1 : 0
 
-  role       = "${aws_iam_role.instance.name}"
-  policy_arn = "${aws_iam_policy.service_linked_role.arn}"
+  role       = aws_iam_role.instance.name
+  policy_arn = aws_iam_policy.service_linked_role.arn
 }
