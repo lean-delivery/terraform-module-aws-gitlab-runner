@@ -31,7 +31,8 @@ variable "docker_machine_version" {
 
 variable "enable_cloudwatch_logging" {
   description = "Enable or disable the CloudWatch logging."
-  default     = 1
+  type        = bool
+  default     = true
 }
 
 variable "environment" {
@@ -89,6 +90,7 @@ variable "runners_privilled" {
 
 variable "runners_monitoring" {
   description = "Enable detailed cloudwatch monitoring for spot instances."
+  type        = bool
   default     = false
 }
 
@@ -131,7 +133,8 @@ variable "runners_root_size" {
 
 variable "runners_use_private_address" {
   description = "Restrict runners to use only private address"
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "ssh_public_key" {
@@ -168,12 +171,14 @@ variable "custom_ami_filter" {
 
 variable "allow_iam_service_linked_role_creation" {
   description = "Attach policy to runner instance to create service linked roles."
+  type        = bool
   default     = true
 }
 
 variable "use_prebacked_ami" {
   description = "Use prebacked ami for runner by default"
-  default     = 0
+  type        = bool
+  default     = false
 }
 
 variable "runner_tags" {
