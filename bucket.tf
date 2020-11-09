@@ -20,7 +20,7 @@ resource "aws_s3_bucket" "build_cache" {
     prefix = "runner/"
 
     expiration {
-      days = "${var.cache_expiration_days}"
+      days = var.cache_expiration_days
     }
   }
 }
