@@ -90,7 +90,7 @@ data "aws_ami" "amazon_optimized_amis" {
 # create ec2 resourse
 resource "aws_instance" "gitlab-runner-userdata" {
   count                       = var.use_prebacked_ami ? 0 : 1
-  ami                         = data.aws_ami.amazon_optimized_amis.id
+  ami                         = data.aws_ami.amazon_optimized_amis[0].id
   instance_type               = var.instance_type
   monitoring                  = false
   subnet_id                   = var.subnet_id_gitlab_runner

@@ -130,12 +130,12 @@ resource "aws_iam_policy" "service_linked_role" {
   path        = "/"
   description = "Policy for creation of service linked roles."
 
-  policy = data.template_file.service_linked_role.rendered
+  policy = data.template_file.service_linked_role[0].rendered
 }
 
 resource "aws_iam_role_policy_attachment" "service_linked_role" {
   count = var.allow_iam_service_linked_role_creation ? 1 : 0
 
   role       = aws_iam_role.instance.name
-  policy_arn = aws_iam_policy.service_linked_role.arn
+  policy_arn = aws_iam_policy.service_linked_role[0].arn
 }
