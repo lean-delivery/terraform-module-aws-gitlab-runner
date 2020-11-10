@@ -8,6 +8,11 @@ output "gitlab_runner_workers_role_name" {
   description = "Role for docker hosts spawned by gitlab runner"
 }
 
+output "gitlab_runner_workers_role_id" {
+  value       = aws_iam_role.runner.id
+  description = "Role ID for docker hosts spawned by gitlab runner"
+}
+
 output "gitlab_runner_security_group_id" {
   value       = aws_security_group.runner.id
   description = "Runner's security group ID"
