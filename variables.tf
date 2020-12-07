@@ -1,12 +1,12 @@
 variable "availability_zone_runners" {
   description = "Availability zone used to host the docker-machine runners."
-  type        = "string"
+  type        = string
   default     = "a"
 }
 
 variable "aws_region" {
   description = "AWS region."
-  type        = "string"
+  type        = string
 }
 
 variable "cache_expiration_days" {
@@ -36,29 +36,29 @@ variable "enable_cloudwatch_logging" {
 
 variable "environment" {
   description = "A name that identifies the environment, will used as prefix and for tagging."
-  type        = "string"
+  type        = string
 }
 
 variable "gitlab_runner_version" {
   description = "Version for the gitlab runner."
-  type        = "string"
+  type        = string
   default     = "11.3.1"
 }
 
 variable "instance_type" {
   description = "Instance type used for the gitlab-runner."
-  type        = "string"
+  type        = string
   default     = "t2.micro"
 }
 
 variable "runners_gitlab_url" {
   description = "URL of the gitlab instance to connect to."
-  type        = "string"
+  type        = string
 }
 
 variable "runners_token" {
   description = "Token for the runner, will be used in the runner config.toml"
-  type        = "string"
+  type        = string
 }
 
 variable "runners_limit" {
@@ -83,7 +83,7 @@ variable "runners_idle_count" {
 
 variable "runners_privilled" {
   description = "Runners will run in privilled mode, will be used in the runner config.toml"
-  type        = "string"
+  type        = string
   default     = "true"
 }
 
@@ -94,12 +94,12 @@ variable "runners_monitoring" {
 
 variable "runners_name" {
   description = "Name of the runner, will be used in the runner config.toml"
-  type        = "string"
+  type        = string
 }
 
 variable "runners_image" {
   description = "Image to run builds, will be used in the runner config.toml"
-  type        = "string"
+  type        = string
   default     = "docker:stable"
 }
 
@@ -120,7 +120,7 @@ variable "runners_off_peak_idle_time" {
 
 variable "runners_off_peak_periods" {
   description = "Off peak periods of the runners, will be used in the runner config.toml."
-  type        = "string"
+  type        = string
   default     = "* * * * * sat,sun *"
 }
 
@@ -136,33 +136,33 @@ variable "runners_use_private_address" {
 
 variable "ssh_public_key" {
   description = "Public SSH key used for the gitlab-runner ec2 instance."
-  type        = "string"
+  type        = string
 }
 
 variable "subnet_id_gitlab_runner" {
   description = "Subnet used for hosting the gitlab-runner."
-  type        = "string"
+  type        = string
 }
 
 variable "subnet_id_runners" {
   description = "Subnet used to hosts the docker-machine runners."
-  type        = "string"
+  type        = string
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   description = "Map of tags that will be added to created resources. By default resources will be taggen with name and environemnt."
   default     = {}
 }
 
 variable "vpc_id" {
   description = "The VPC that is used for the instances."
-  type        = "string"
+  type        = string
 }
 
 variable "custom_ami_filter" {
   description = "Name of the prebaked ami with gitlab runner proxy preinstalled"
-  type        = "string"
+  type        = string
   default     = ""
 }
 
@@ -177,7 +177,8 @@ variable "use_prebacked_ami" {
 }
 
 variable "runner_tags" {
-  type        = "list"
+  type        = list(string)
   description = "list of tags to assign to gitlab runner"
   default     = ["docker"]
 }
+
